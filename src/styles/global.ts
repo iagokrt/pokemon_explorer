@@ -1,6 +1,6 @@
 import { createGlobalStyle} from 'styled-components'
 
-import Background from '../assets/github.svg';
+import Background from '../assets/pokemon.svg';
 
 export default createGlobalStyle`
   * {
@@ -11,7 +11,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #72c2a0 url(${Background}) no-repeat 70% top;
+    background: #72c2a0 url(${Background}) no-repeat 80% top;
     -webkit-font-smoothing:  antialiased;
   }
 
@@ -22,7 +22,8 @@ export default createGlobalStyle`
   #root {
     max-width: 960px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding-right: 20px;
+    padding-left: 20px;
   }
 
   button {
