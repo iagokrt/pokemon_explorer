@@ -25,8 +25,7 @@ export const Title = styled.h1`
   }
 `;
 
-// container is used at this moment only for handle the pokeball+Input.
-// inside container is: pokeball image + input pokename
+// Inside container are: PokeballImage + InputPokemonAme
 export const Container = styled.div`
   max-width: 530px;
 
@@ -36,7 +35,6 @@ export const Container = styled.div`
     width: 75px;
   }
 `;
-
 // Create the keyframes
 const rotate = keyframes`
   from {
@@ -63,7 +61,12 @@ export const ApiLink = styled.h2`
   margin-bottom: 20px;
 `;
 
-export const Form = styled.form`
+
+interface FormProps {
+  hasError: boolean;
+}
+
+export const Form = styled.form<FormProps>`
   margin-top: 20px;
   max-width: 750px;
 
@@ -73,8 +76,7 @@ export const Form = styled.form`
 
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
-
-
+  border: 1px solid
 
   div {
     display: flex;
@@ -93,29 +95,29 @@ export const Form = styled.form`
     width: 130px;
     background: none;
 
-    &&::placeholder {
-      color: #000;
-    }
-
     &:hover {
       cursor: pointer;
       background: #f83f37;
       border: 1px solid #f1f1f1;
-
     }
 
     transition: background ease 0.6s;
     transition: width linear 1s;
 
     &:focus {
-      width: 1000px;
+      width: 400px;
       opacity: 1;
       z-index: 2;
       background: #f83f37;
       color: #f1f1f1;
+
       ::placeholder {
-      color: #f1f1f1;
+        color: #f1f1f1;
       }
+    }
+
+    &&::placeholder {
+      color: #000;
     }
   }
 
@@ -144,6 +146,12 @@ export const Form = styled.form`
       width: 222px;
     }
   }
+`;
+
+export const Error = styled.span`
+  display: block;
+  color: #ce3030;
+  margin-top: 8px;
 `;
 
 export const Pokemons = styled.div`

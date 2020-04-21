@@ -8,7 +8,7 @@ import PokeIcon from '../../assets/pokeball.svg';
 //import Heart from '../../assets/heart.svg';
 import PokeBall from '../../assets/ballInput.svg';
 
-import { Title, ApiLink, Container, Rotate, Form, Pokemons, Footer, Credits } from './styles';
+import { Title, ApiLink, Container, Rotate, Form, Error, Pokemons, Footer, Credits } from './styles';
 
 interface PokeRequest {
   name: string;
@@ -20,20 +20,30 @@ interface PokeRequest {
   //types: []
 }
 
-
 const Dashboard: React.FC = () => {
   const [newPoke, setNewPoke] = useState('');
+  const [inputError, setInputError] = useState('');
   const [pokemons, setPokemons] = useState<PokeRequest[]>([]);
 
   async function handleAddPokemon(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
-    const response = await api.get<PokeRequest>(`/pokemon/${newPoke}`);
+    if (!newPoke) {
+      setInputError('Tente primeiro digitar o nome de algum Pokemon');
+      return;
+    }
 
-    const pokemon = response.data;
+    try {
+      const response = await api.get<PokeRequest>(`/pokemon/${newPoke}`);
 
-    setPokemons([...pokemons, pokemon]);
-    setNewPoke('');
+      const pokemon = response.data;
+
+      setPokemons([...pokemons, pokemon]);
+      setNewPoke('');
+      setInputError('');
+    } catch (err) {
+      setInputError('Erro na Busca. Tente outra vez ou continue com outro nome :(');
+    }
   }
 
   return (
@@ -44,8 +54,7 @@ const Dashboard: React.FC = () => {
       <span><i><b>Procure</b> pokemons usando a PokeBola</i></span> <br /><br />
       <span><i><b>Clique</b> no botão GOTCHA!</i></span>
 
-
-      <Form onSubmit={handleAddPokemon}>
+      <Form hasError={!!inputError} onSubmit={handleAddPokemon}>
         <Container>
             <Rotate><img id="pokeballFinder" src={PokeBall} alt="type pokemon name" /></Rotate>
           <input
@@ -57,6 +66,8 @@ const Dashboard: React.FC = () => {
             <img id="poke-logo" src={PokeIcon} alt="pokemon _Explorer" />
         </button>
       </Form>
+
+      {inputError && <Error> {inputError} </Error> }
 
       <Pokemons>
       {pokemons.map(pokemon => (

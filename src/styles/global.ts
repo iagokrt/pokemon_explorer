@@ -11,7 +11,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #72c2a0 url(${Background}) no-repeat 80% top;
+    background: #72c2a0 url(${Background}) no-repeat 100% 100%;
     -webkit-font-smoothing:  antialiased;
   }
 
